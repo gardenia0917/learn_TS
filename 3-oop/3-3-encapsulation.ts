@@ -49,15 +49,16 @@
             return this.internalAge;
         }
         set age(num: number) {
+            if (num < 0) {
+                
+            }
             this.internalAge = num;
         }
         constructor(private firstName: string,private lastName: string) {
         }
     }
     const user = new User('Steve', 'Jobs');
-    console.log(user.fullName);
-    
-    user.firstName = 'Sunny'
+    user.age = 6;
     console.log(user.fullName);
     
 }
