@@ -1,4 +1,4 @@
-{
+{ // 캡슐화
     type CoffeeCup = {
         shots: number;
         hasMilk: boolean;

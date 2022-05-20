@@ -1,4 +1,4 @@
-{
+{ //추상
     type CoffeeCup = {
         shots: number;
         hasMilk: boolean;

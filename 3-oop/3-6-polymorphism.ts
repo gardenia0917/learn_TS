@@ -1,7 +1,8 @@
-{ // 상속
-  type CoffeeCup = {
-    shots: number;
-    hasMilk: boolean;
+{ // 다형성
+    type CoffeeCup = {
+      shots: number;
+      hasMilk: boolean;
+      hasSugar?: boolean;
   };
 
   interface CoffeeMaker {
@@ -57,29 +58,44 @@
       return this.extract(shots);
     }
   }
-    class CaffeLatteMachine extends CoffeeMachine{ // 상속
-        // 자식클래스에서 또 다른 데이터에서 생성자를 받아오려면 super가 필요함
-        constructor(beans:number,public serialNumber: string) {
-            super(beans)
-        }
-        private steamMilk(): void {
-            console.log('Steaming some milk...🥛');
-            
-        }
-        makeCoffee(shots: number): CoffeeCup {
+  class CaffeLatteMachine extends CoffeeMachine {
+    // 상속
+    // 자식클래스에서 또 다른 데이터에서 생성자를 받아오려면 super가 필요함
+    // constructor(beans:number,public serialNumber: string) {
+    //     super(beans)
+    // }
+    private steamMilk(): void {
+      console.log("Steaming some milk...🥛");
+    }
+    makeCoffee(shots: number): CoffeeCup {
+      const coffee = super.makeCoffee(shots);
+      this.steamMilk();
+      return {
+        ...coffee,
+        hasMilk: true,
+      };
+    }
+  }
+
+  class SweetCoffeeMaker extends CoffeeMachine {
+        makeCoffee(shots: number): CoffeeCup{
             const coffee = super.makeCoffee(shots);
-            this.steamMilk();
             return {
                 ...coffee,
-                hasMilk:true,
+                hasSugar: true,
             }
         }
-    }
-    
-    const machine = new CoffeeMachine(23);
-    const latteMachine = new CaffeLatteMachine(23,'SSSS');
-    const coffee = latteMachine.makeCoffee(1);
-    console.log(coffee);
-    console.log(latteMachine.serialNumber);
-    
+  }
+    const machines: CoffeeMaker[] = [
+      new CoffeeMachine(16),
+      new CaffeLatteMachine(16),
+      new SweetCoffeeMaker(16),
+      new CoffeeMachine(16),
+      new CaffeLatteMachine(16),
+      new SweetCoffeeMaker(16),
+    ];
+    machines.forEach((machine) => {
+      console.log("-----------");
+        machine.makeCoffee(1)
+    });
 }
