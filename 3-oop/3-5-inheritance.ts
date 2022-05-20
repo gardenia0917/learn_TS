@@ -8,18 +8,12 @@
     makeCoffee(shots: number): CoffeeCup;
   }
 
-  interface CommercialCoffeeMaker {
-    makeCoffee(shots: number): CoffeeCup;
-    fillCoffeeBeans(beans: number): void;
-    clean(): void;
-  }
-
-  class CoffeeMachine implements CoffeeMaker, CommercialCoffeeMaker {
+  class CoffeeMachine implements CoffeeMaker {
     // CoffeeMaker를 구현하는 CoffeeMachine
     private static BEANS_GRAMM_PER_SHOT: number = 7; // class level
     private coffeeBeans: number = 0; // instance (object) level
 
-    private constructor(coffeeBeans: number) {
+    constructor(coffeeBeans: number) {
       this.coffeeBeans = coffeeBeans;
     }
 
@@ -63,5 +57,28 @@
       return this.extract(shots);
     }
   }
-
+    class CaffeLatteMachine extends CoffeeMachine{ // 상속
+        // 자식클래스에서 또 다른 데이터에서 생성자를 받아오려면 super가 필요함
+        // constructor(beans:number,public serialNumber: string) {
+        //     super(beans)
+        // }
+        private steamMilk(): void {
+            console.log('Steaming some milk...🥛');
+            
+        }
+        makeCoffee(shots: number): CoffeeCup {
+            const coffee = super.makeCoffee(shots);
+            this.steamMilk();
+            return {
+                ...coffee,
+                hasMilk:true,
+            }
+        }
+    }
+    
+    const machine = new CoffeeMachine(23);
+    const latteMachine = new CaffeLatteMachine(23);
+    const coffee = latteMachine.makeCoffee(1);
+    console.log(coffee);
+    
 }
