@@ -87,5 +87,8 @@
     const maker: CoffeeMachine = CoffeeMachine.makeMachine(32);
     const amateur = new AmateurUser(maker);
     const pro = new ProBarista(maker);
+    amateur.makeCoffee();
+    console.log('$$$$$$$');
+    
     pro.makeCoffee();
 }

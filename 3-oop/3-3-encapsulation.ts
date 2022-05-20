@@ -39,6 +39,8 @@
 
     const maker = CoffeeMaker.makeMachine(32);
     maker.fillCoffeeBeans(32);
+    console.log(maker); // 32있는데 fillCoffeeBeans로 32개 추가해서 64개
+    
 
     class User {
         get fullName(): string {
@@ -50,7 +52,7 @@
         }
         set age(num: number) {
             if (num < 0) {
-                
+                throw new Error('-number')
             }
             this.internalAge = num;
         }
@@ -58,7 +60,9 @@
         }
     }
     const user = new User('Steve', 'Jobs');
-    user.age = 6;
+    user.age = 3;
     console.log(user.fullName);
+    console.log(user.age);
+    
     
 }

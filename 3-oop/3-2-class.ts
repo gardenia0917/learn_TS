@@ -5,7 +5,9 @@
     }
 
     class CoffeeMaker {
+        // const let fuction 사용 ❌
         static BEANS_GRAMM_PER_SHOT: number = 7; // class level
+        // static 쓰면 밖에 안 보임-> this.BEANS_GRAMM_PER_SHOT 사용 못함. 
         coffeeBeans: number = 0; // instance (object) level
         
         constructor(coffeeBeans:number) {
@@ -34,4 +36,6 @@
     console.log(maker2);
 
     const maker3 = CoffeeMaker.makeMachine(3);
+    console.log(maker3);
+    
 }
